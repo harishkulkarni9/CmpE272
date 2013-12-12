@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="Chandeep" created="Wed Dec 04 21:37:37 PST 2013" guiVersion="3.5.0.M2" id="1386225518159" licenseType="Evaluation" modified="Thu Dec 05 17:51:43 PST 2013" modifiedBy="Chandeep" name="Integration" revision="1.5" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata1">
+<Record fieldDelimiter="|" name="Property_Sheet1" recordDelimiter="\r\n" type="delimited">
+<Field format="excel:#,##0" label="PMCurrentValueinDollars" name="PMCurrentValueinDollars" type="long"/>
+<Field format="" label="PropertyOwner" name="PropertyOwner" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata0" previewAttachment="${DATAIN_DIR}/SSN.csv" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" label="SSN.csv" name="SSN_csv" previewAttachment="${DATAIN_DIR}/SSN.csv" previewAttachmentCharset="ISO-8859-1" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field name="ApplicationID" type="string"/>
+<Field name="SSN" type="integer"/>
+<Field eofAsDelimiter="true" name="CreditScore" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="TreeReader_ErrPortWithFile" previewAttachment="${DATAIN_DIR}/Crime.xml" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" name="XMLReader_TreeReader_ErrPortWithFile" previewAttachment="${DATAIN_DIR}/Crime.xml" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" type="delimited">
+<Field name="CrimeRecord" type="string"/>
+</Record>
+</Metadata>
+<GraphParameters>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="${DATAIN_DIR}/Property.xlsx" guiName="SpreadsheetDataReader" guiX="72" guiY="168" id="SPREADSHEET_DATA_READER" type="SPREADSHEET_READER"/>
+<Node enabled="enabled" fileURL="${DATAIN_DIR}/SSN.csv" guiName="UniversalDataReader" guiX="91" guiY="48" id="UNIVERSAL_DATA_READER" type="DATA_READER"/>
+<Node enabled="enabled" fileURL="${DATAIN_DIR}/Crime.xml" guiName="XMLReader" guiX="91" guiY="286" id="XMLREADER" type="XML_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- =========================== Context ================================ -->
+<!-- Context element sets the "current node" in the XML tree              --> 
+<!-- for subsequent Mapping (or Context) operations.                      -->
+<!--                                                                      -->
+<!-- Parameters:                                                          -->
+<!--   xpath: position in the XML tree                                    -->
+<!--   outPort: (optional) routes mapped data to specified output port    -->
+<!--                                                                      -->
+<!-- Valid "xpath" for root context:                                      -->
+<!--   xpath="/nameOfRootElement"                                         -->
+<!--   (e.g. "/employees" for root XML element "<employees>"              -->
+
+<Context xpath="/Crime" outPort ="0">
+  <!-- =========================== Mapping ================================ -->
+  <!-- Mapping elements extract data from single XML elements or attributes -->
+  <!-- in the current XML element or elements contained in it.              --> 
+  <!--                                                                      -->
+  <!-- Parameters:                                                          -->
+  <!--   xpath: extract value from attribute specified                      -->
+  <!--                                                                      -->
+  <Mapping cloverField="CrimeRecord" xpath="CrimeRecord"/>
+  
+    <!-- ======================== Nested Context ============================ -->
+    <!-- Context and mapping elements can be nested to extract data from      -->
+    <!-- XML subtrees or repeating XML elements.                              -->
+    <!--                                                                      -->
+   
+</Context>
+]]></attr>
+</Node>
+<Node enabled="enabled" fileURL="${DATAOUT_DIR}/FinalData.xml" guiName="XMLWriter" guiX="405" guiY="168" id="XMLWRITER" type="EXT_XML_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:clover="http://www.cloveretl.com/ns/xmlmapping">
+  <SSN clover:inPort="0">
+    <clover:elements clover:include="$0.*"/>
+  </SSN>
+  <Property clover:inPort="1">
+    <clover:elements clover:include="$1.*"/>
+  </Property>
+  <Crime clover:inPort="2">
+    <clover:elements clover:include="$2.*"/>
+  </Crime>
+</root>]]></attr>
+</Node>
+<Edge fromNode="SPREADSHEET_DATA_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge1" inPort="Port 1 (in)" metadata="Metadata1" outPort="Port 0 (output)" toNode="XMLWRITER:1"/>
+<Edge fromNode="UNIVERSAL_DATA_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge0" inPort="Port 0 (in)" metadata="Metadata0" outPort="Port 0 (output)" toNode="XMLWRITER:0"/>
+<Edge fromNode="XMLREADER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge2" inPort="Port 2 (in)" metadata="TreeReader_ErrPortWithFile" outPort="Port 0 (out)" toNode="XMLWRITER:2"/>
+</Phase>
+</Graph>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="Chandeep" created="Sun Dec 01 21:13:43 PST 2013" guiVersion="3.5.0.M2" id="1385970645697" licenseCode="CLDEXU26626F1D308EX" licenseType="Evaluation" modified="Wed Dec 04 18:01:55 PST 2013" modifiedBy="Chandeep" name="Final" revision="1.29" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata0" previewAttachment="${DATAIN_DIR}/customers.csv" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" label="customers.csv" name="customers_csv" previewAttachment="${DATAIN_DIR}/customers.csv" previewAttachmentCharset="ISO-8859-1" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field name="Field1" type="string"/>
+<Field name="Field2" type="string"/>
+<Field name="Field3" type="string"/>
+<Field name="Field4" type="string"/>
+<Field name="Field5" type="string"/>
+<Field name="Field6" type="string"/>
+<Field name="Field7" type="string"/>
+<Field name="Field8" type="string"/>
+<Field name="Field9" type="string"/>
+<Field name="Field10" type="string"/>
+<Field eofAsDelimiter="true" name="Field11" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata2" previewAttachment="${DATAIN_DIR}/orderdetails.csv" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" label="orderdetails.csv" name="orderdetails_csv" previewAttachment="${DATAIN_DIR}/orderdetails.csv" previewAttachmentCharset="ISO-8859-1" quoteChar="both" quotedStrings="false" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="OrderID" type="integer"/>
+<Field name="ProductID" type="integer"/>
+<Field name="UnitPrice" scale="1" type="decimal"/>
+<Field name="Quantity" type="integer"/>
+<Field eofAsDelimiter="true" name="Discount" scale="2" type="decimal"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata1" previewAttachment="${DATAIN_DIR}/orders.csv" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter=";" label="orders.csv" name="orders_csv" previewAttachment="${DATAIN_DIR}/orders.csv" previewAttachmentCharset="ISO-8859-1" quoteChar="both" quotedStrings="false" recordDelimiter="\n" skipSourceRows="1" type="delimited">
+<Field name="OrderID" type="integer"/>
+<Field name="CustomerID" type="string"/>
+<Field name="OrderDate" type="string"/>
+<Field eofAsDelimiter="true" name="OrderValue" scale="2" type="decimal"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata3">
+<Record fieldDelimiter="|" name="recordName1" recordDelimiter="\r\n" type="delimited">
+<Field name="field1" type="string"/>
+<Field name="field2" type="string"/>
+<Field name="field3" type="string"/>
+<Field name="field4" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="TreeReader_ErrPortWithFile" previewAttachment="${DATAIN_DIR}/NewFile.xml" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" name="XMLReader_TreeReader_ErrPortWithFile" previewAttachment="${DATAIN_DIR}/NewFile.xml" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" type="delimited">
+<Field name="to" type="string"/>
+<Field name="from" type="string"/>
+<Field name="heading" type="string"/>
+<Field name="body" type="string"/>
+</Record>
+</Metadata>
+<Connection database="MYSQL" dbURL="jdbc:mysql://hostname:3306/database" id="JDBC0" jdbcSpecific="MYSQL" name="NewConnection" type="JDBC"/>
+<Connection database="MYSQL" dbURL="jdbc:mysql://hostname:3306/database" id="JDBC1" jdbcSpecific="MYSQL" name="NewConnection" password="root" type="JDBC" user="root"/>
+<GraphParameters>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node database="sakila" enabled="enabled" guiName="MysqlDataWriter" guiX="458" guiY="135" host="localhost" id="MYSQL_DATA_WRITER" mysqlPath="C:/Program Files/MySQL/MySQL Server 5.6/bin/mysql.exe" password="root" table="note" type="MYSQL_DATA_WRITER" username="root"/>
+<Node enabled="enabled" fileURL="${DATAOUT_DIR}/FinalData.xml" guiName="XMLReader" guiX="60" guiY="43" id="XMLREADER" type="XML_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- =========================== Context ================================ -->
+<!-- Context element sets the "current node" in the XML tree              --> 
+<!-- for subsequent Mapping (or Context) operations.                      -->
+<!--                                                                      -->
+<!-- Parameters:                                                          -->
+<!--   xpath: position in the XML tree                                    -->
+<!--   outPort: (optional) routes mapped data to specified output port    -->
+<!--                                                                      -->
+<!-- Valid "xpath" for root context:                                      -->
+<!--   xpath="/nameOfRootElement"                                         -->
+<!--   (e.g. "/employees" for root XML element "<employees>"              -->
+
+<Context xpath="/note" outPort="0">
+  <!-- =========================== Mapping ================================ -->
+  <!-- Mapping elements extract data from single XML elements or attributes -->
+  <!-- in the current XML element or elements contained in it.              --> 
+  <!--                                                                      -->
+  <!-- Parameters:                                                          -->
+  <!--   xpath: extract value from attribute specified                      -->
+  <!--                                                                      -->
+  <Mapping cloverField="field1" xpath="to"/>
+  <Mapping cloverField="field2" xpath="from"/>
+  <Mapping cloverField="field3" xpath="heading"/>
+  <Mapping cloverField="field4" xpath="body"/>
+    <!-- ======================== Nested Context ============================ -->
+    <!-- Context and mapping elements can be nested to extract data from      -->
+    <!-- XML subtrees or repeating XML elements.                              -->
+    <!--                                                                      -->
+  
+
+</Context>
+]]></attr>
+</Node>
+<Edge fromNode="XMLREADER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge2" inPort="Port 0 (in)" metadata="Metadata3" outPort="Port 0 (out)" toNode="MYSQL_DATA_WRITER:0"/>
+</Phase>
+</Graph>

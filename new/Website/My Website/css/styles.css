@@ -1,0 +1,47 @@
+/* CSS Document */
+
+body					{ background-image:url(../images/body-background.png); 
+							background-repeat:repeat; }
+							
+h1, h2, h3, h4			{ font-family:Cambria, "Hoefler Text", "Liberation Serif", Times, "Times New Roman", serif; }
+
+#wrapper				{ width:900px; 
+							margin:20px auto; 
+							background-color:#fff; 
+							padding:0 40px; }
+
+#top					{  }
+#logo					{ float:left; margin:50px 0; }
+#social-media			{ float:right; margin:40px 0; }
+#social-media ul li		{ display:inline; list-style-type:none; }
+#social-media p			{ text-align:right; }
+
+#topnav					{ clear:both; }
+#topnav ul				{ padding:15px 0; margin:0; border-top:1px #000 dotted; }
+#topnav	ul li			{ display:inline; list-style-type:none; margin:0 40px 0 0; font-size:14px; }
+#topnav	a:link			{ font-weight:bold; text-decoration:none; color:#005A8B; }
+#topnav	a:visited		{ font-weight:bold; text-decoration:none; color:#005A8B; }
+#topnav	a:active		{ font-weight:bold; text-decoration:none; color:#005A8B; }
+#topnav	a:hover			{ font-weight:bold; text-decoration:none; color:#C79900; }
+#topnav	a:focus			{ font-weight:bold; text-decoration:none; color:#C79900; }
+
+#main-content			{ float:left; width:580px; }
+#main-content p			{ font-size:14px; line-height:150%; }
+#main-content h2		{ color:#C79900; }
+
+#box1					{ width:265px; float:left; }
+
+#box2					{ width:265px; float:right; }
+
+.img-right				{ float:right; padding:0 0 20px 10px;}
+
+#heading				{ clear:both; }
+
+#side-content			{ float:right; width:270px; }
+#side-content p			{ font-size:14px; line-height:180%; }
+#side-content h2		{ color:#C79900; }
+#side-content li		{ font-size:14px; line-height:180%; }
+
+#footer					{ clear:both; padding:10px 0; 
+							border-top:1px #000 dotted; }
+#footer p				{ text-align:center; font-size:16px; font-weight:bold; }
